@@ -4,7 +4,7 @@ const hubStyles =
 
 const HubBar = () => {
   return (
-    <div className="flex min-h-0 flex-1 flex-col text-zinc-100 text-1xl">
+    <div className="flex min-h-0 flex-1 flex-col justify-center text-zinc-100 text-1xl">
       {hubs.map((hubs) => (
         <div className={hubStyles} key={hubs}>
           <h3>{hubs}</h3>
