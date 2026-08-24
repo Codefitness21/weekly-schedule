@@ -1,6 +1,7 @@
 import Datebar from "./Datebar";
 import Togglebar from "./Togglebar";
 import logo from "/images/logo.png";
+import CalPicker from "./CalPicker";
 
 const Navbar = () => {
   return (
@@ -11,9 +12,12 @@ const Navbar = () => {
       <div className="flex text-zinc-100 text-2xl">
         <h3>Weekly Belt Schedule</h3>
       </div>
-      <div className="flex flex-col ml-auto ">
+      <div className="flex flex-col ml-auto">
         <Togglebar />
-        <Datebar />
+        <div className="flex flex-row items-center gap-4">
+          <Datebar />
+          <CalPicker />
+        </div>
       </div>
     </div>
   );
