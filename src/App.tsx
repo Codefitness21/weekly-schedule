@@ -11,6 +11,11 @@ const schedule = () => {
       <div className="flex flex-row flex-1">
         <HubBar />
         <SessionBtn />
+        <SessionBtn />
+        <SessionBtn />
+        <SessionBtn />
+        <SessionBtn />
+        <SessionBtn />
       </div>
     </main>
   );
