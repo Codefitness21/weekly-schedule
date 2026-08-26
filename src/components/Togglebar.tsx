@@ -7,7 +7,7 @@ const Togglebar = () => {
         South Austin
       </NavLink>
 
-      <NavLink to="/beecave" className="bg-[#FF9E42] px-14">
+      <NavLink to="/beecave" className="bg-[#FE6602] px-14">
         Bee Cave
       </NavLink>
     </div>
