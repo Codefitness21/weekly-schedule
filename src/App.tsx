@@ -1,24 +1,16 @@
-import Calbar from "./components/Calbar";
-import Navbar from "./components/Navbar";
-import HubBar from "./components/HubBar";
-import SessionBtn from "./components/SessionBtn";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Austin from "./pages/Austin";
+import BeeCave from "./pages/BeeCave";
 
-const schedule = () => {
+const App = () => {
   return (
-    <main className="flex min-h-dvh flex-col bg-cover bg-no-repeat text-foreground bg-[url('/images/iCode-Austin-bkgrd.jpg')]">
-      <Navbar />
-      <Calbar />
-      <div className="flex flex-row flex-1">
-        <HubBar />
-        <SessionBtn />
-        <SessionBtn />
-        <SessionBtn />
-        <SessionBtn />
-        <SessionBtn />
-        <SessionBtn />
-      </div>
-    </main>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/austin" element={<Austin />} />
+        <Route path="/beecave" element={<BeeCave />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
-export default schedule;
+export default App;
