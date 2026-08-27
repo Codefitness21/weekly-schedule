@@ -3,8 +3,10 @@ import Togglebar from "./Togglebar";
 import logo from "/images/logo.png";
 import CalPicker from "./CalPicker";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 const Navbar = () => {
+  const [category, setCategory] = useState("");
   return (
     <div className="flex h-20 flex-row items-center gap-4 bg-black p-8 cursor-pointer">
       <div className="w-16">
@@ -13,7 +15,25 @@ const Navbar = () => {
         </NavLink>
       </div>
       <div className="flex text-zinc-100 text-2xl">
-        <h3>Weekly Belt Schedule</h3>
+        <select
+          className="p-2 cursor-pointer"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="Weekly Belt Session Schedule">
+            Weekly Belt Session Schedule
+          </option>
+          <option value="Thanksgiving Camp Schedule">
+            Thanksgiving Camp Schedule
+          </option>
+          <option value="Winter Break Camp Schedule">
+            Winter Break Camp Schedule
+          </option>
+          <option value="Spring Break Camp Schedule">
+            Spring Break Camp Schedule
+          </option>
+          <option value="Summer Camp Schedule">Summer Camp Schedule</option>
+        </select>
       </div>
       <div className="flex flex-col ml-auto">
         <Togglebar />
