@@ -10,13 +10,18 @@ const Navbar = () => {
   return (
     <div className="flex h-20 flex-row items-center gap-4 bg-black p-8 cursor-pointer">
       <div className="w-16">
-        <NavLink to="/">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `${isActive ? "bg-blue-500 text-white" : "bg-white text-black"}`
+          }
+        >
           <img src={logo} alt="iCode logo" />
         </NavLink>
       </div>
       <div className="flex text-zinc-100 text-2xl">
         <select
-          className="p-2 cursor-pointer"
+          className="cursor-pointer p-2"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
