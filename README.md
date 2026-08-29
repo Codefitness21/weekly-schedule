@@ -1,75 +1,119 @@
-# React + TypeScript + Vite
+# Schedule
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React + TypeScript app for managing class/session scheduling, built with Vite.
 
-Currently, two official plugins are available:
+This project is currently being used to build a session edit modal and scheduling UI for class records.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Current project goal
 
-## React Compiler
+Create a schedule management interface where users can:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- view and edit session details
+- select instructors and class status
+- assign hub and class type
+- choose start/end times
+- add notes
+- delete, cancel, or save session updates
 
-## Expanding the ESLint configuration
+## Current app structure
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The app is organized around a few reusable UI pieces and page views, including:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- `App.tsx`
+- `pages/Home.tsx`
+- `pages/Austin.tsx`
+- `pages/BeeCave.tsx`
+- `components/Modal.tsx`
+- `components/Navbar.tsx`
+- `components/Datebar.tsx`
+- `components/Calbar.tsx`
+- `components/CalPicker.tsx`
+- `components/HubBar.tsx`
+- `components/SessionBtn.tsx`
+- `components/Togglebar.tsx`
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Current session modal fields
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+The modal currently includes the following form components and inputs:
 
+- Instructor
+- Sub checkbox
+- Class Status
+- Hub
+- Belt Classes
+- Camp Classes
+- Start Time
+- End Time
+- Notes
+- Delete button
+- Cancel button
+- Save button
+
+## Current state being tracked
+
+The modal is currently tracking values like:
+
+- instructor
+- isSubChecked
+- status
+- hub
+- belt
+- camp
+- startTime
+- endTime
+- description
+
+This is a good place to add more fields as the scheduling workflow grows.
+
+## Tech stack
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+
+## Notes for continued development
+
+This README will continue to be updated as the app evolves.
+
+Use this section to document new form fields, UI logic, or business rules as they are added.
+
+## Update log
+
+### Current input checklist
+
+- [x] Instructor
+- [x] Sub checkbox
+- [x] Class Status
+- [x] Hub
+- [x] Belt Classes
+- [x] Camp Classes
+- [x] Start Time
+- [x] End Time
+- [x] Notes
+- [x] Delete
+- [x] Cancel
+- [x] Save
+
+### Add as the project grows
+
+- [ ] Attendance status
+- [ ] Recurring class toggle
+
+- [ ] Save to local state / database
+- [ ] API integration
+
+## How to run locally
+
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Future improvements
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
-```
+- improve form validation
+- connect to real schedule data
+- support editing multiple sessions
+- style the modal to match the rest of the app
+- add reusable form components for repeated inputs
