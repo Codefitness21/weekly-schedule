@@ -1,4 +1,4 @@
-import Datebar from "./Datebar";
+import WeeklyDateNav from "./WeeklyDateNav";
 import Togglebar from "./Togglebar";
 import logo from "/images/logo.png";
 import CalPicker from "./CalPicker";
@@ -43,7 +43,7 @@ const Navbar = () => {
       <div className="flex flex-col ml-auto">
         <Togglebar />
         <div className="flex flex-row items-center gap-4">
-          <Datebar />
+          <WeeklyDateNav />
           <CalPicker />
         </div>
       </div>

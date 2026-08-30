@@ -1,9 +1,20 @@
+/* Tailwind being used for styling */
 @import 'tailwindcss';
 
+/* The layer base is a CSS feature used to manage specificity and cascading order.*/
+/* Future refactoring can look at using unlayered styles, which are the highest priority, component and utility styles.  */
 @layer base {
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+}
+
+@layer components {
+  .nav-label {
+    background: #ffffff;
+    padding: 0 8px;
+    text-align: center
   }
 }

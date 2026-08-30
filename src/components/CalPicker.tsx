@@ -1,7 +1,16 @@
+//Components managed with useState.
+//DatePicker is the calendar input component from the react-datepicker library.
+//Imported "react-datepicker/dist/react-datepicker.css" for the calendar styling;
+//calendar image located in the images folder under the public folder imports the calendar icon.
+
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import calendar from "/images/calendar.png";
+
+//startDate stores the currently selected date, initialized to today's date.
+//The image is imported in this manner for build verification, image optimization, etc.
+//This gives the build system more control and catches errors earlier. It can prevent the browser from showing outdated versions of files.
 
 const CalPicker = () => {
   const [startDate, setStartDate] = useState(new Date());
@@ -13,7 +22,7 @@ const CalPicker = () => {
         alt="iCode logo"
       />
       <DatePicker
-        //tells CalPicker whicjh date to display.
+        //tells CalPicker which date to display.
         selected={startDate}
         //runs when the user selects a date after clicking onChange. The newly selected date supplied by CalPicker. Then updates React state, causing the displayed date to update.
         onChange={(date: any) => setStartDate(date)}

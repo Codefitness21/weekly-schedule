@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Austin from "./pages/Austin";
 import BeeCave from "./pages/BeeCave";
 import Home from "./pages/Home";
-import Modal from "./components/Modal";
+// import Modal from "./components/Modal";
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
         <Route path="/austin" element={<Austin />} />
         <Route path="/beecave" element={<BeeCave />} />
       </Routes>
-      <Modal />
+      {/* <Modal /> */}
     </BrowserRouter>
   );
 };
