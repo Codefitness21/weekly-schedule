@@ -5,6 +5,20 @@ import CalPicker from "./CalPicker";
 import { NavLink } from "react-router-dom";
 import { useState } from "react";
 
+//Logo is in the NavBar component.
+//NavLink is a component from react-router-dom.
+//Navigates to home home page when logo is clicked.
+
+//className accepts a function that receives an object containing an isActive property.
+//isActive is a boolean that tells whether the current link is active.
+//Destructuring is used to get the isActive value from that object.
+//Use a ternary operator: if isActive is true, set bg-blue-500 and text-white; otherwise, set bg-white and text-black.
+
+//Set the category to be used by the value.
+//When clicked, triggers the onChange event to fire.
+//We get the selected value from e.targe.value and pass it to setCategory, which updates the category.
+//The component re-renders with the new value.
+
 const Navbar = () => {
   const [category, setCategory] = useState("");
   return (

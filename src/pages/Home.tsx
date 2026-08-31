@@ -3,6 +3,12 @@ import Navbar from "../components/Navbar";
 import HubBar from "../components/HubBar";
 import SessionBtn from "../components/SessionBtn";
 
+//The Home page (accessed by clicking on the iCode logo) shares the same view page as Austin.
+//This creates six session btn components in a loop for the home page.
+//Creates an array with 6 items and maps over them.
+//The Array.from() converts the length into an actual array and runs the callback function for each item.
+//That callback function is (_, index) => (), which runs 6 times. I'm not interested in the first parameter, hence the underscore. I just care about the index.
+
 const schedule = () => {
   return (
     <main className="flex min-h-dvh flex-col bg-cover bg-no-repeat text-foreground bg-[url('/images/iCode-Austin-bkgrd.jpg')]">
