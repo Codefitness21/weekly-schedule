@@ -18,16 +18,16 @@ const Modal = () => {
 
   //handleChange takes the place of e.target.value
   //Change out state by setting setFormData.
-  //This needs to be immutable.
   //Setting the formData to the data that's in the form. Spread across form data.
   //Using the name as propety name so [] were used.
+  //The name attribute tells the function which property to in formData to update.
   //Name is set to whatever the value is.
 
   const handleChange = (e: any) => {
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
-      [e.target.name]: e.target.checked,
+      [name]: type === "checkbox" ? checked : value,
     });
   };
 
@@ -86,7 +86,7 @@ const Modal = () => {
               </label>
               <select
                 name="status"
-                className="cursor-pointer w-25 p-2 border rounded-none"
+                className="cursor-pointer w-40 p-2 border rounded-none"
                 value={formData.status}
                 onChange={handleChange}
               >
@@ -109,10 +109,10 @@ const Modal = () => {
                 onChange={handleChange}
               >
                 <option value="None">None</option>
-                <option value="One">1</option>
-                <option value="Two">2</option>
-                <option value="Three">3</option>
-                <option value="Four">4</option>
+                <option value="One">H-1</option>
+                <option value="Two">H-2</option>
+                <option value="Three">H-3</option>
+                <option value="Four">H-4</option>
               </select>
             </div>
           </div>

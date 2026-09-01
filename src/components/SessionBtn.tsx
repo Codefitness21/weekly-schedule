@@ -1,5 +1,5 @@
 const SessionBtn = () => {
-  const boxes = Array.from({ length: 5 }, (_, index) => index + 1);
+  const boxes = Array.from({ length: 10 }, (_, index) => index + 1);
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       {boxes.map((boxes) => (
