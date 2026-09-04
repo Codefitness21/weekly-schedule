@@ -3,14 +3,17 @@ import { useState } from "react";
 //Single piece of state called Form Data to replace the individual states for every field.
 //Objects representing each input. One piece of state which is an object.
 
+//Map through tailwind???
+
 const Modal = () => {
   const [formData, setFormData] = useState({
-    instructor: "Select Instructor",
+    instructor: "Instructor",
+    backUp: "Back-up Instructor",
     subChecked: false,
     status: "None",
     hub: "None",
-    belt: "Select Belt Class",
-    camp: "Select Belt Camp",
+    belt: "Belt Class",
+    camp: "Belt Camp",
     startTime: "",
     endTime: "",
     note: "",
@@ -64,11 +67,11 @@ const Modal = () => {
               </div>
               <select
                 name="instructor"
-                className="cursor-pointer w-70 p-2 border rounded-none"
+                className="cursor-pointer w-35 p-2 border rounded-none"
                 value={formData.instructor}
                 onChange={handleChange}
               >
-                <option value="Select Instructor">(Select Instructor)</option>
+                <option value="Instructor">(Instructor)</option>
                 <option value="Kelly">Kelly</option>
                 <option value="Donta">Donta</option>
                 <option value="John">John</option>
@@ -76,6 +79,32 @@ const Modal = () => {
                 <option value="Mya">Mya</option>
                 <option value="Michael">Michael</option>
                 <option value="Sonu">Sonu</option>
+                <option value="Gio">Gio</option>
+                <option value="Jeff">Jeff</option>
+              </select>
+            </div>
+            <div>
+              <label
+                htmlFor="back-up instructor"
+                className="flex flex-row justify-between font-bold"
+              >
+                Back-up Instructor
+              </label>
+              <select
+                name="backUp"
+                className="cursor-pointer w-50 p-2 border rounded-none"
+                value={formData.backUp}
+                onChange={handleChange}
+              >
+                <option value="Back-up Instructor">(Back-up Instructor)</option>
+                <option value="Kelly">Kelly</option>
+                <option value="Donta">Donta</option>
+                <option value="John">John</option>
+                <option value="Kalina">Kalina</option>
+                <option value="Mya">Mya</option>
+                <option value="Michael">Michael</option>
+                <option value="Sonu">Sonu</option>
+                <option value="Gio">Gio</option>
                 <option value="Jeff">Jeff</option>
               </select>
             </div>
