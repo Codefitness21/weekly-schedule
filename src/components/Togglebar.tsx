@@ -1,5 +1,7 @@
 import { NavLink, useLocation } from "react-router-dom";
 
+//Look into Search Params
+
 const Togglebar = () => {
   const { pathname } = useLocation();
   const isAustin = pathname === "/" || pathname === "/austin";

@@ -1,22 +1,51 @@
 import { useState } from "react";
+import { supabase } from "../assets/supabase-client.ts";
+
+type ModalProps = {
+  onClose?: () => void;
+};
 
 //Single piece of state called Form Data to replace the individual states for every field.
 //Objects representing each input. One piece of state which is an object.
 
 //Map through tailwind???
 
-const Modal = () => {
+const Modal = ({ onClose }: ModalProps) => {
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    const { error } = await supabase.from("sessions").insert({
+      instructor: formData.instructor,
+      backUp: formData.backUp,
+      sub: formData.sub,
+      status: formData.status,
+      hub: formData.hub,
+      belt: formData.belt,
+      camp: formData.camp,
+      startTime: formData.startTime,
+      endTime: formData.endTime,
+      notes: formData.notes,
+    });
+
+    if (error) {
+      console.error(error);
+      alert("Unable to save session.");
+      return;
+    }
+    onClose?.();
+  };
+
   const [formData, setFormData] = useState({
     instructor: "Instructor",
     backUp: "Back-up Instructor",
-    subChecked: false,
+    sub: false,
     status: "None",
     hub: "None",
-    belt: "Belt Class",
-    camp: "Belt Camp",
-    startTime: "",
-    endTime: "",
-    note: "",
+    belt: "Select Belt",
+    camp: "Select Camp",
+    startTime: "0:00",
+    endTime: "0:00",
+    notes: "",
   });
 
   //handleChange takes the place of e.target.value
@@ -37,10 +66,7 @@ const Modal = () => {
   return (
     <div className="fixed top-0 right-0 w-full h-full bg-black/70 flex flex-row justify-center items-center ">
       <div className="bg-white p-20 w-200 h-150">
-        <div className="text-3xl font-bold mb-4">
-          <h1>Edit Session</h1>
-        </div>
-        <form className="flex flex-col gap-4">
+        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="flex flex-row justify-between">
             <div>
               <div className="flex flex-row justify-between">
@@ -48,7 +74,7 @@ const Modal = () => {
                   htmlFor="instructor"
                   className="flex flex-row justify-between font-bold"
                 >
-                  Instructor
+                  Instructors
                 </label>
 
                 <label
@@ -56,9 +82,9 @@ const Modal = () => {
                   className="flex flex-row items-end text-sm font-normal gap-2"
                 >
                   <input
-                    name="subChecked"
+                    name="sub"
                     type="checkbox"
-                    checked={formData.subChecked}
+                    checked={formData.sub}
                     onChange={handleChange}
                     className="mb-1 cursor-pointer"
                   ></input>
@@ -71,13 +97,12 @@ const Modal = () => {
                 value={formData.instructor}
                 onChange={handleChange}
               >
-                <option value="Instructor">(Instructor)</option>
+                <option value="Instructor">(Instructors)</option>
                 <option value="Kelly">Kelly</option>
                 <option value="Donta">Donta</option>
                 <option value="John">John</option>
                 <option value="Kalina">Kalina</option>
                 <option value="Mya">Mya</option>
-                <option value="Michael">Michael</option>
                 <option value="Sonu">Sonu</option>
                 <option value="Gio">Gio</option>
                 <option value="Jeff">Jeff</option>
@@ -88,7 +113,7 @@ const Modal = () => {
                 htmlFor="back-up instructor"
                 className="flex flex-row justify-between font-bold"
               >
-                Back-up Instructor
+                Back-up Instructors
               </label>
               <select
                 name="backUp"
@@ -96,13 +121,14 @@ const Modal = () => {
                 value={formData.backUp}
                 onChange={handleChange}
               >
-                <option value="Back-up Instructor">(Back-up Instructor)</option>
+                <option value="Back-up Instructor">
+                  (Back-up Instructors)
+                </option>
                 <option value="Kelly">Kelly</option>
                 <option value="Donta">Donta</option>
                 <option value="John">John</option>
                 <option value="Kalina">Kalina</option>
                 <option value="Mya">Mya</option>
-                <option value="Michael">Michael</option>
                 <option value="Sonu">Sonu</option>
                 <option value="Gio">Gio</option>
                 <option value="Jeff">Jeff</option>
@@ -203,6 +229,7 @@ const Modal = () => {
                 onChange={handleChange}
               ></select>
             </div>
+
             <div>
               <label
                 htmlFor="endTime"
@@ -228,9 +255,9 @@ const Modal = () => {
                 *Notes*
               </label>
               <textarea
-                name="note"
+                name="notes"
                 className="cursor-pointer w-160 p-2 border rounded-none"
-                value={formData.note}
+                value={formData.notes}
                 onChange={handleChange}
               ></textarea>
             </div>
@@ -244,10 +271,17 @@ const Modal = () => {
             </div>
 
             <div className="flex flex-row items-right justify-center">
-              <button className="border rounded-none py-0.5 px-3 cursor-pointer mr-4">
+              <button
+                type="button"
+                className="border rounded-none py-0.5 px-3 cursor-pointer mr-4"
+                onClick={onClose}
+              >
                 Cancel
               </button>
-              <button className="border border-black rounded-none bg-blue-500 text-white py-0.5 px-3 cursor-pointer">
+              <button
+                type="submit"
+                className="border border-black rounded-none bg-blue-500 text-white py-0.5 px-3 cursor-pointer"
+              >
                 Save
               </button>
             </div>
