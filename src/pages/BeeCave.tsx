@@ -13,7 +13,7 @@ const BeeCave = () => {
 
   return (
     <>
-      <main className="flex min-h-dvh flex-col bg-cover bg-no-repeat text-foreground bg-[url('/images/iCode-BeeCave-bkgrd.jpg')]">
+      <main className="flex min-h-dvh flex-col bg-cover bg-no-repeat text-foreground bg-[url(./images/Bee_Cave.jpg)]">
         <Navbar />
         <div className="bg-[#FE6602]">
           <Calbar />
