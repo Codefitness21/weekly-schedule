@@ -15,7 +15,7 @@ const Calbar = ({ weekStart }: CalbarProps) => {
   const dayNames = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat"];
 
   return (
-    <div className="grid h-16 grid-cols-[12vw_repeat(6,minmax(0,1fr))] items-center text-1xl text-zinc-100">
+    <div className="grid h-16 grid-cols-[12vw_repeat(6,minmax(0,1fr))] items-center text-1xl text-zinc-100 font-bold">
       <div />
       {dates.map((date, index) => (
         <div
