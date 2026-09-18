@@ -11,6 +11,18 @@ type ModalProps = {
 //Map through tailwind???
 
 const Modal = ({ onClose }: ModalProps) => {
+  const fetchSessions = async () => {
+    const { data, error } = await supabase.from("sessions").select("*");
+
+    if (error) {
+      console.error("Fetch sessions failed:", error);
+      alert("Unable to load sessions.");
+      return [];
+    }
+
+    return data ?? [];
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -32,6 +44,8 @@ const Modal = ({ onClose }: ModalProps) => {
       alert("Unable to save session.");
       return;
     }
+
+    await fetchSessions();
     onClose?.();
   };
 
@@ -66,7 +80,7 @@ const Modal = ({ onClose }: ModalProps) => {
   return (
     <div className="fixed top-0 right-0 w-full h-full bg-black/70 flex flex-row justify-center items-center ">
       <div className="bg-white p-20 w-200 h-150">
-        <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div className="flex flex-row justify-between">
             <div>
               <div className="flex flex-row justify-between">

@@ -4,12 +4,37 @@
 //Left and right margins are respected.
 //An @layer components base styling was created globally in the index.css file for the date input field and the nav btns using the nav-label className. They share the same properties.
 
-const WeeklyDateNav = () => {
+type WeeklyDateNavProps = {
+  weekStart: Date;
+  onWeekChange: (direction: number) => void;
+};
+
+const WeeklyDateNav = ({ weekStart, onWeekChange }: WeeklyDateNavProps) => {
+  const formatDate = (date: Date) => `${date.getMonth() + 1}/${date.getDate()}`;
+
+  const monday = new Date(weekStart);
+  const saturday = new Date(weekStart);
+  saturday.setDate(monday.getDate() + 5);
+
   return (
-    <div className="nav-level flex flex-row">
-      <span className="nav-label mr-2">Prev</span>
-      <span className="nav-label">Date range</span>
-      <span className="nav-label ml-2">Next</span>
+    <div className="nav-level flex flex-row items-center">
+      <button
+        type="button"
+        className="nav-label mr-2 cursor-pointer"
+        onClick={() => onWeekChange(-1)}
+      >
+        Prev
+      </button>
+      <span className="nav-label mx-2">
+        {formatDate(monday)} - {formatDate(saturday)}
+      </span>
+      <button
+        type="button"
+        className="nav-label ml-2 cursor-pointer"
+        onClick={() => onWeekChange(1)}
+      >
+        Next
+      </button>
     </div>
   );
 };

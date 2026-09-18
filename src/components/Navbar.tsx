@@ -19,8 +19,15 @@ import { useState } from "react";
 //We get the selected value from e.targe.value and pass it to setCategory, which updates the category.
 //The component re-renders with the new value.
 
-const Navbar = () => {
+type NavbarProps = {
+  weekStart: Date;
+  onWeekChange: (direction: number) => void;
+  onDateChange: (date: Date) => void;
+};
+
+const Navbar = ({ weekStart, onWeekChange, onDateChange }: NavbarProps) => {
   const [category, setCategory] = useState("");
+
   return (
     <div className="flex h-20 flex-row items-center gap-4 bg-black p-8 cursor-pointer">
       <div className="w-16">
@@ -57,8 +64,8 @@ const Navbar = () => {
       <div className="flex flex-col ml-auto">
         <Togglebar />
         <div className="flex flex-row items-center gap-4">
-          <WeeklyDateNav />
-          <CalPicker />
+          <WeeklyDateNav weekStart={weekStart} onWeekChange={onWeekChange} />
+          <CalPicker weekStart={weekStart} onDateChange={onDateChange} />
         </div>
       </div>
     </div>

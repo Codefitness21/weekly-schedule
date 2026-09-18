@@ -12,8 +12,12 @@ import calendar from "/images/calendar.png";
 //The image is imported in this manner for build verification, image optimization, etc.
 //This gives the build system more control and catches errors earlier. It can prevent the browser from showing outdated versions of files.
 
-const CalPicker = () => {
-  const [startDate, setStartDate] = useState(new Date());
+type CalPickerProps = {
+  weekStart: Date;
+  onDateChange: (date: Date) => void;
+};
+
+const CalPicker = ({ weekStart, onDateChange }: CalPickerProps) => {
   return (
     <div className="flex flex-row items-center bg-white">
       <img
@@ -23,9 +27,11 @@ const CalPicker = () => {
       />
       <DatePicker
         //tells CalPicker which date to display.
-        selected={startDate}
+        selected={weekStart}
         //runs when the user selects a date after clicking onChange. The newly selected date supplied by CalPicker. Then updates React state, causing the displayed date to update.
-        onChange={(date: any) => setStartDate(date)}
+        onChange={(date: Date | null) => {
+          if (date) onDateChange(date);
+        }}
         className="w-38 text-center cursor-pointer"
       />
     </div>

@@ -7,7 +7,7 @@ const Togglebar = () => {
   const isAustin = pathname === "/" || pathname === "/austin";
 
   return (
-    <div className="flex flex-row mb-2 w-fit">
+    <div className="flex flex-row mb-2 w-full justify-end">
       <NavLink
         to="/austin"
         className={({ isActive }) =>
