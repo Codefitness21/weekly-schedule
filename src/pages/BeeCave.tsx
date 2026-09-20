@@ -3,7 +3,9 @@ import HubBar from "../components/HubBar";
 import Modal from "../components/Modal";
 import Navbar from "../components/Navbar";
 import SessionCard from "../components/SessionCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { supabase } from "../assets/supabase-client";
+import type { Session } from "../types/session";
 
 const getMondayOfCurrentWeek = () => {
   const today = new Date();
@@ -20,9 +22,47 @@ const getMondayOfCurrentWeek = () => {
 const BeeCave = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [weekStart, setWeekStart] = useState<Date>(getMondayOfCurrentWeek);
+  const [selectedDate, setSelectedDate] = useState("");
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const openModal = () => setIsModalOpen(true);
+  useEffect(() => {
+    const fetchSessions = async () => {
+      setIsLoading(true);
+      const saturday = new Date(weekStart);
+      saturday.setDate(saturday.getDate() + 5);
+
+      const { data, error } = await supabase
+        .from("sessions")
+        .select("*")
+        .eq("location", "Bee Cave")
+        .gte("session_date", weekStart.toISOString().slice(0, 10))
+        .lte("session_date", saturday.toISOString().slice(0, 10));
+
+      if (error) {
+        console.error("Failed to fetch Bee Cave sessions:", error);
+        setIsLoading(false);
+        return;
+      }
+
+      setSessions(data ?? []);
+      setIsLoading(false);
+    };
+
+    fetchSessions();
+  }, [weekStart]);
+
+  const openModal = (date: string) => {
+    setSelectedDate(date);
+    setIsModalOpen(true);
+  };
   const closeModal = () => setIsModalOpen(false);
+
+  const dates = Array.from({ length: 6 }, (_, index) => {
+    const date = new Date(weekStart);
+    date.setDate(date.getDate() + index);
+    return date.toISOString().slice(0, 10);
+  });
 
   const shiftWeek = (direction: number) => {
     setWeekStart((current) => {
@@ -54,13 +94,36 @@ const BeeCave = () => {
         </div>
         <div className="flex flex-row flex-1">
           <HubBar />
-          {Array.from({ length: 6 }, (_, index) => (
-            <SessionCard key={index} onOpenModal={openModal} />
-          ))}
+          {isLoading ? (
+            <div className="flex flex-1 items-center justify-center bg-white/70">
+              Loading sessions...
+            </div>
+          ) : (
+            dates.map((date) => (
+              <SessionCard
+                key={date}
+                date={date}
+                sessions={sessions.filter(
+                  (session) => session.session_date === date,
+                )}
+                onOpenModal={() => openModal(date)}
+              />
+            ))
+          )}
         </div>
       </main>
 
-      {isModalOpen && <Modal onClose={closeModal} />}
+      {isModalOpen && (
+        <Modal
+          date={selectedDate}
+          location="Bee Cave"
+          onSaved={() => {
+            setIsModalOpen(false);
+            setWeekStart((current) => new Date(current));
+          }}
+          onClose={closeModal}
+        />
+      )}
     </>
   );
 };

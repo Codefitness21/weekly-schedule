@@ -2,7 +2,10 @@ import { useState } from "react";
 import { supabase } from "../assets/supabase-client.ts";
 
 type ModalProps = {
-  onClose?: () => void;
+  date: string;
+  location: string;
+  onSaved: () => void;
+  onClose: () => void;
 };
 
 //Single piece of state called Form Data to replace the individual states for every field.
@@ -10,19 +13,7 @@ type ModalProps = {
 
 //Map through tailwind???
 
-const Modal = ({ onClose }: ModalProps) => {
-  const fetchSessions = async () => {
-    const { data, error } = await supabase.from("sessions").select("*");
-
-    if (error) {
-      console.error("Fetch sessions failed:", error);
-      alert("Unable to load sessions.");
-      return [];
-    }
-
-    return data ?? [];
-  };
-
+const Modal = ({ date, location, onSaved, onClose }: ModalProps) => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -32,6 +23,8 @@ const Modal = ({ onClose }: ModalProps) => {
       sub: formData.sub,
       status: formData.status,
       hub: formData.hub,
+      session_date: date,
+      location,
       belt: formData.belt,
       camp: formData.camp,
       startTime: formData.startTime,
@@ -45,20 +38,19 @@ const Modal = ({ onClose }: ModalProps) => {
       return;
     }
 
-    await fetchSessions();
-    onClose?.();
+    onSaved();
   };
 
   const [formData, setFormData] = useState({
-    instructor: "Instructor",
-    backUp: "Back-up Instructor",
+    instructor: "",
+    backUp: "",
     sub: false,
-    status: "None",
-    hub: "None",
-    belt: "Select Belt",
-    camp: "Select Camp",
-    startTime: "0:00",
-    endTime: "0:00",
+    status: "",
+    hub: "",
+    belt: "",
+    camp: "",
+    startTime: "",
+    endTime: "",
     notes: "",
   });
 
@@ -138,11 +130,11 @@ const Modal = ({ onClose }: ModalProps) => {
                 <option value="Back-up Instructor">
                   (Back-up Instructors)
                 </option>
-                <option value="Kelly">Kelly</option>
-                <option value="Donta">Donta</option>
-                <option value="John">John</option>
-                <option value="Kalina">Kalina</option>
-                <option value="Mya">Mya</option>
+                <option value="Kelly"> Kelly</option>
+                <option value="Donta"> Donta</option>
+                <option value="John"> John</option>
+                <option value="Kalina"> Kalina</option>
+                <option value="Mya"> Mya</option>
                 <option value="Sonu">Sonu</option>
                 <option value="Gio">Gio</option>
                 <option value="Jeff">Jeff</option>
@@ -163,7 +155,7 @@ const Modal = ({ onClose }: ModalProps) => {
                 <option value="Paused">Paused</option>
                 <option value="Cancelled">Cancelled</option>
                 <option value="Rescheduled">Rescheduled</option>
-                <option value="Make-up">Make-up</option>
+                <option value="Makeup">Makeup</option>
                 <option value="Private">Private</option>
               </select>
             </div>
@@ -178,10 +170,10 @@ const Modal = ({ onClose }: ModalProps) => {
                 onChange={handleChange}
               >
                 <option value="None">None</option>
-                <option value="One">H-1</option>
-                <option value="Two">H-2</option>
-                <option value="Three">H-3</option>
-                <option value="Four">H-4</option>
+                <option value="H-1">H-1</option>
+                <option value="H-2">H-2</option>
+                <option value="H-3">H-3</option>
+                <option value="H-4">H-4</option>
               </select>
             </div>
           </div>
@@ -270,7 +262,9 @@ const Modal = ({ onClose }: ModalProps) => {
               </label>
               <textarea
                 name="notes"
-                className="cursor-pointer w-160 p-2 border rounded-none"
+                maxLength={75}
+                wrap="soft"
+                className="w-160 resize-none whitespace-normal p-2 border rounded-none"
                 value={formData.notes}
                 onChange={handleChange}
               ></textarea>
