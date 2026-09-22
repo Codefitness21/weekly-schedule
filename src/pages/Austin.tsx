@@ -23,6 +23,7 @@ const Austin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [weekStart, setWeekStart] = useState<Date>(getMondayOfCurrentWeek);
   const [selectedDate, setSelectedDate] = useState("");
+  const [selectedSession, setSelectedSession] = useState<Session | null>(null);
 
   const [sessions, setSessions] = useState<Session[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -57,6 +58,12 @@ const Austin = () => {
 
   const openModal = (date: string) => {
     setSelectedDate(date);
+    setSelectedSession(null);
+    setIsModalOpen(true);
+  };
+  const editSession = (session: Session) => {
+    setSelectedDate(session.session_date);
+    setSelectedSession(session);
     setIsModalOpen(true);
   };
   const closeModal = () => setIsModalOpen(false);
@@ -111,6 +118,7 @@ const Austin = () => {
                   (session) => session.session_date === date,
                 )}
                 onOpenModal={() => openModal(date)}
+                onEditSession={editSession}
               />
             ))
           )}
@@ -121,6 +129,7 @@ const Austin = () => {
         <Modal
           date={selectedDate}
           location="Austin"
+          session={selectedSession}
           onSaved={() => {
             setIsModalOpen(false);
             setWeekStart((current) => new Date(current));

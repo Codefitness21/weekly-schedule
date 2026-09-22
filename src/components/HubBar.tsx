@@ -5,7 +5,7 @@
 
 const hubs = ["HUB 1", "HUB 2", "HUB 3", "HUB 4", "Make-ups/Private"];
 const hubStyles =
-  "flex flex-1 min-h-50 w-[15vw] items-center justify-center bg-black border-t-1";
+  "flex flex-1 min-h-55 w-[15vw] items-center justify-center bg-black border-t-1";
 
 const HubBar = () => {
   return (

@@ -23,6 +23,7 @@ const BeeCave = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [weekStart, setWeekStart] = useState<Date>(getMondayOfCurrentWeek);
   const [selectedDate, setSelectedDate] = useState("");
+  const [selectedSession, setSelectedSession] = useState<Session | null>(null);
   const [sessions, setSessions] = useState<Session[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -54,6 +55,12 @@ const BeeCave = () => {
 
   const openModal = (date: string) => {
     setSelectedDate(date);
+    setSelectedSession(null);
+    setIsModalOpen(true);
+  };
+  const editSession = (session: Session) => {
+    setSelectedDate(session.session_date);
+    setSelectedSession(session);
     setIsModalOpen(true);
   };
   const closeModal = () => setIsModalOpen(false);
@@ -107,6 +114,7 @@ const BeeCave = () => {
                   (session) => session.session_date === date,
                 )}
                 onOpenModal={() => openModal(date)}
+                onEditSession={editSession}
               />
             ))
           )}
@@ -117,6 +125,7 @@ const BeeCave = () => {
         <Modal
           date={selectedDate}
           location="Bee Cave"
+          session={selectedSession}
           onSaved={() => {
             setIsModalOpen(false);
             setWeekStart((current) => new Date(current));

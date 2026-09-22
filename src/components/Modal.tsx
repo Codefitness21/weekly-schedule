@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { supabase } from "../assets/supabase-client.ts";
+import type { Session } from "../types/session";
 
 type ModalProps = {
   date: string;
   location: string;
+  session?: Session | null;
   onSaved: () => void;
   onClose: () => void;
 };
@@ -13,24 +15,45 @@ type ModalProps = {
 
 //Map through tailwind???
 
-const Modal = ({ date, location, onSaved, onClose }: ModalProps) => {
+const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
+  const [formData, setFormData] = useState({
+    instructor: session?.instructor ?? "",
+    backUp: session?.backUp ?? "",
+    sub: session?.sub ?? false,
+    status: session?.status ?? "",
+    hub: session?.hub ?? "",
+    belt: session?.belt ?? "",
+    camp: session?.camp ?? "",
+    startTime: session?.startTime ?? "",
+    endTime: session?.endTime ?? "",
+    notes: session?.notes ?? "",
+  });
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    const { error } = await supabase.from("sessions").insert({
+    const sessionDetails = {
       instructor: formData.instructor,
       backUp: formData.backUp,
       sub: formData.sub,
       status: formData.status,
       hub: formData.hub,
-      session_date: date,
-      location,
       belt: formData.belt,
       camp: formData.camp,
       startTime: formData.startTime,
       endTime: formData.endTime,
       notes: formData.notes,
-    });
+    };
+    const { error } = session
+      ? await supabase
+          .from("sessions")
+          .update(sessionDetails)
+          .eq("id", session.id)
+      : await supabase.from("sessions").insert({
+          ...sessionDetails,
+          session_date: date,
+          location,
+        });
 
     if (error) {
       console.error(error);
@@ -40,19 +63,6 @@ const Modal = ({ date, location, onSaved, onClose }: ModalProps) => {
 
     onSaved();
   };
-
-  const [formData, setFormData] = useState({
-    instructor: "",
-    backUp: "",
-    sub: false,
-    status: "",
-    hub: "",
-    belt: "",
-    camp: "",
-    startTime: "",
-    endTime: "",
-    notes: "",
-  });
 
   //handleChange takes the place of e.target.value
   //Change out state by setting setFormData.
