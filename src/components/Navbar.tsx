@@ -3,7 +3,7 @@ import Togglebar from "./Togglebar";
 import logo from "/images/logo.png";
 import CalPicker from "./CalPicker";
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+// import { useState } from "react";
 
 //Logo is in the NavBar component.
 //NavLink is a component from react-router-dom.
@@ -26,7 +26,7 @@ type NavbarProps = {
 };
 
 const Navbar = ({ weekStart, onWeekChange, onDateChange }: NavbarProps) => {
-  const [category, setCategory] = useState("");
+  // const [category, setCategory] = useState("");
 
   return (
     <div className="flex h-20 flex-row items-center gap-4 bg-black p-8 cursor-pointer">
@@ -40,8 +40,9 @@ const Navbar = ({ weekStart, onWeekChange, onDateChange }: NavbarProps) => {
           <img src={logo} alt="iCode logo" />
         </NavLink>
       </div>
-      <div className="flex text-zinc-100 text-2xl">
-        <select
+      <div className="flex text-zinc-100 text-1xl">
+        Weekly Belt Session Schedule
+        {/* <select
           className="cursor-pointer p-2"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
@@ -59,7 +60,7 @@ const Navbar = ({ weekStart, onWeekChange, onDateChange }: NavbarProps) => {
             Spring Break Camp Schedule
           </option>
           <option value="Summer Camp Schedule">Summer Camp Schedule</option>
-        </select>
+        </select> */}
       </div>
       <div className="flex flex-col ml-auto">
         <Togglebar />

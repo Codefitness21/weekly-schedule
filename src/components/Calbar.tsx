@@ -13,7 +13,7 @@ const Calbar = ({ weekStart }: CalbarProps) => {
   });
 
   return (
-    <div className="grid h-16 grid-cols-[12vw_repeat(6,minmax(0,1fr))] justify-items-center items-center text-1xl text-zinc-100">
+    <div className="grid h-16 grid-cols-[15vw_repeat(6,minmax(0,1fr))] justify-items-center items-center text-1xl text-zinc-100">
       <div />
       {dates.map((date, index) => (
         <div

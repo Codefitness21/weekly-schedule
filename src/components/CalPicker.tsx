@@ -3,7 +3,6 @@
 //Imported "react-datepicker/dist/react-datepicker.css" for the calendar styling;
 //calendar image located in the images folder under the public folder imports the calendar icon.
 
-import { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import calendar from "/images/calendar.png";
@@ -23,7 +22,7 @@ const CalPicker = ({ weekStart, onDateChange }: CalPickerProps) => {
       <img
         className="w-4 justify-center items-center ml-2"
         src={calendar}
-        alt="iCode logo"
+        alt="calendar icon"
       />
       <DatePicker
         //tells CalPicker which date to display.

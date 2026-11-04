@@ -5,6 +5,7 @@ import type { Session } from "../types/session";
 type ModalProps = {
   date: string;
   location: string;
+  slot: number;
   session?: Session | null;
   onSaved: () => void;
   onClose: () => void;
@@ -15,17 +16,25 @@ type ModalProps = {
 
 //Map through tailwind???
 
-const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
+const Modal = ({
+  date,
+  location,
+  slot,
+  session,
+  onSaved,
+  onClose,
+}: ModalProps) => {
   const [formData, setFormData] = useState({
+    repeatWeekly: true,
     instructor: session?.instructor ?? "",
-    backUp: session?.backUp ?? "",
+    // backUp: session?.backUp ?? "",
     sub: session?.sub ?? false,
     status: session?.status ?? "",
     hub: session?.hub ?? "",
-    belt: session?.belt ?? "",
-    camp: session?.camp ?? "",
     startTime: session?.startTime ?? "",
     endTime: session?.endTime ?? "",
+    belt: session?.belt ?? "",
+    camp: session?.camp ?? "",
     notes: session?.notes ?? "",
   });
 
@@ -34,30 +43,71 @@ const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
 
     const sessionDetails = {
       instructor: formData.instructor,
-      backUp: formData.backUp,
+      // backUp: formData.backUp,
       sub: formData.sub,
       status: formData.status,
       hub: formData.hub,
-      belt: formData.belt,
-      camp: formData.camp,
       startTime: formData.startTime,
       endTime: formData.endTime,
+      belt: formData.belt,
+      camp: formData.camp,
       notes: formData.notes,
     };
+
+    const rows = [];
+    const weeks = formData.repeatWeekly ? 12 : 1;
+
+    for (let i = 0; i < weeks; i++) {
+      const dates = new Date(date);
+      dates.setDate(dates.getDate() + i * 7);
+
+      rows.push({
+        ...sessionDetails,
+        session_date: dates.toISOString().slice(0, 10),
+        location,
+        slot,
+      });
+    }
+
     const { error } = session
       ? await supabase
           .from("sessions")
           .update(sessionDetails)
           .eq("id", session.id)
-      : await supabase.from("sessions").insert({
-          ...sessionDetails,
-          session_date: date,
-          location,
-        });
+      : await supabase.from("sessions").insert(rows);
 
     if (error) {
       console.error(error);
       alert("Unable to save session.");
+      return;
+    }
+
+    onSaved();
+  };
+
+  const handleDelete = async () => {
+    if (!session) return;
+
+    const confirmed = window.confirm(
+      "Delete this session? This cannot be undone.",
+    );
+    if (!confirmed) return;
+
+    const { data, error } = await supabase
+      .from("sessions")
+      .delete()
+      .eq("id", session.id)
+      .select("id")
+      .maybeSingle();
+
+    if (error) {
+      console.error("Failed to delete session:", error);
+      alert("Unable to delete session.");
+      return;
+    }
+
+    if (!data) {
+      alert("No session was deleted. It may already have been removed.");
       return;
     }
 
@@ -113,18 +163,18 @@ const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
                 value={formData.instructor}
                 onChange={handleChange}
               >
-                <option value="Instructor">(Instructors)</option>
+                <option value=""></option>
                 <option value="Kelly">Kelly</option>
                 <option value="Donta">Donta</option>
                 <option value="John">John</option>
                 <option value="Kalina">Kalina</option>
                 <option value="Mya">Mya</option>
-                <option value="Sonu">Sonu</option>
+                <option value="Roberto">Roberto</option>
                 <option value="Gio">Gio</option>
                 <option value="Jeff">Jeff</option>
               </select>
             </div>
-            <div>
+            {/* <div>
               <label
                 htmlFor="back-up instructor"
                 className="flex flex-row justify-between font-bold"
@@ -137,19 +187,17 @@ const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
                 value={formData.backUp}
                 onChange={handleChange}
               >
-                <option value="Back-up Instructor">
-                  (Back-up Instructors)
-                </option>
+                <option>(Back-up Instructors)</option>
                 <option value="Kelly"> Kelly</option>
                 <option value="Donta"> Donta</option>
                 <option value="John"> John</option>
                 <option value="Kalina"> Kalina</option>
                 <option value="Mya"> Mya</option>
-                <option value="Sonu">Sonu</option>
+                <option value="Roberto">Roberto</option>
                 <option value="Gio">Gio</option>
                 <option value="Jeff">Jeff</option>
               </select>
-            </div>
+            </div> */}
 
             <div>
               <label htmlFor="status" className="block font semibold font-bold">
@@ -161,7 +209,7 @@ const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
                 value={formData.status}
                 onChange={handleChange}
               >
-                <option value="None">None</option>
+                <option value=""></option>
                 <option value="Paused">Paused</option>
                 <option value="Cancelled">Cancelled</option>
                 <option value="Rescheduled">Rescheduled</option>
@@ -179,11 +227,11 @@ const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
                 value={formData.hub}
                 onChange={handleChange}
               >
-                <option value="None">None</option>
-                <option value="H-1">H-1</option>
-                <option value="H-2">H-2</option>
-                <option value="H-3">H-3</option>
-                <option value="H-4">H-4</option>
+                <option value=""></option>
+                <option value="HUB-1">HUB-1</option>
+                <option value="HUB-2">HUB-2</option>
+                <option value="HUB-3">HUB-3</option>
+                <option value="HUB-4">HUB-4</option>
               </select>
             </div>
           </div>
@@ -198,12 +246,16 @@ const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
                 value={formData.belt}
                 onChange={handleChange}
               >
-                <option value="Select Belt">(Select Belt)</option>
+                <option value=""></option>
                 <option value="Stem Jr.">Stem Jr.</option>
-                <option value="Foundation">Foundation</option>
-                <option value="White Belt">White Belt</option>
-                <option value="Gray Belt">Gray Belt</option>
-                <option value="Orange Belt">Orange Belt</option>
+                <option value="Winter Foundation">Winter Foundation</option>
+                <option value="Fall Foundation">Fall Foundation</option>
+                <option value="Winter White Belt">Winter White Belt</option>
+                <option value="Fall White Belt">Fall White Belt</option>
+                <option value="Winter Gray Belt">Winter Gray Belt</option>
+                <option value="Fall Gray Belt">Fall Gray Belt</option>
+                <option value="Winter Orange Belt">Winter Orange Belt</option>
+                <option value="Fall Orange Belt">Fall Orange Belt</option>
                 <option value="Yellow Belt">Yellow Belt</option>
                 <option value="Green Belt">Green Belt</option>
                 <option value="Red Belt">Red Belt</option>
@@ -222,15 +274,16 @@ const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
                 value={formData.camp}
                 onChange={handleChange}
               >
-                <option value="Select Camp">(Select Camp)</option>
+                <option value=""></option>
                 <option value="Minecraft">Minecraft</option>
                 <option value="YouTube">YouTube</option>
+                <option value="YouTube">Roblox</option>
                 <option value="VEX">VEX</option>
               </select>
             </div>
           </div>
 
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row gap-7">
             <div>
               <label
                 htmlFor="startTime"
@@ -238,12 +291,17 @@ const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
               >
                 Start Time
               </label>
-              <select
+              <input
+                className="border-1 p-2"
+                type="time"
+                id="startTime"
                 name="startTime"
-                className="cursor-pointer w-70 p-2 border rounded-none"
                 value={formData.startTime}
                 onChange={handleChange}
-              ></select>
+                min="0:00"
+                max="23:59"
+                required
+              />
             </div>
 
             <div>
@@ -253,16 +311,32 @@ const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
               >
                 End Time
               </label>
-              <select
+              <input
+                className="border-1 p-2"
+                type="time"
+                id="endTime"
                 name="endTime"
-                className="cursor-pointer w-70 p-2 border rounded-none"
                 value={formData.endTime}
                 onChange={handleChange}
-              ></select>
+                min="0:00"
+                max="23:59"
+                required
+              />
+            </div>
+            <div className="flex flex-row text-sm">
+              <label className="flex flex-row self-center gap-2 ml-15">
+                <input
+                  type="checkbox"
+                  name="repeatWeekly"
+                  checked={formData.repeatWeekly}
+                  onChange={handleChange}
+                />
+                Repeat Weekly
+              </label>
             </div>
           </div>
 
-          <div className="flex flex-row ">
+          <div className="flex flex-row">
             <div>
               <label
                 htmlFor="description"
@@ -272,7 +346,7 @@ const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
               </label>
               <textarea
                 name="notes"
-                maxLength={75}
+                maxLength={150}
                 wrap="soft"
                 className="w-160 resize-none whitespace-normal p-2 border rounded-none"
                 value={formData.notes}
@@ -283,7 +357,11 @@ const Modal = ({ date, location, session, onSaved, onClose }: ModalProps) => {
 
           <div className="flex flex-row justify-between">
             <div className="flex flex-row">
-              <button className="border border-black rounded-none bg-red-500 text-white py-0.5 px-3.5 cursor-pointer">
+              <button
+                type="button"
+                onClick={handleDelete}
+                className="border border-black rounded-none bg-red-500 text-white py-0.5 px-3.5 cursor-pointer"
+              >
                 Delete
               </button>
             </div>

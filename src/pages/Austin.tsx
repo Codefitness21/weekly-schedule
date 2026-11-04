@@ -6,6 +6,7 @@ import SessionCard from "../components/SessionCard";
 import { useEffect, useState } from "react";
 import { supabase } from "../assets/supabase-client";
 import type { Session } from "../types/session";
+import DirectorRow from "../components/DirectorRow";
 
 const getMondayOfCurrentWeek = () => {
   const today = new Date();
@@ -23,6 +24,7 @@ const Austin = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [weekStart, setWeekStart] = useState<Date>(getMondayOfCurrentWeek);
   const [selectedDate, setSelectedDate] = useState("");
+  const [selectedSlot, setSelectedSlot] = useState(1);
   const [selectedSession, setSelectedSession] = useState<Session | null>(null);
 
   const [sessions, setSessions] = useState<Session[]>([]);
@@ -56,13 +58,15 @@ const Austin = () => {
     fetchSessions();
   }, [weekStart]);
 
-  const openModal = (date: string) => {
+  const openModal = (date: string, slot: number) => {
     setSelectedDate(date);
+    setSelectedSlot(slot);
     setSelectedSession(null);
     setIsModalOpen(true);
   };
   const editSession = (session: Session) => {
     setSelectedDate(session.session_date);
+    setSelectedSlot(session.slot ?? 1);
     setSelectedSession(session);
     setIsModalOpen(true);
   };
@@ -102,7 +106,7 @@ const Austin = () => {
         <div className="bg-blue-500">
           <Calbar weekStart={weekStart} />
         </div>
-
+        <DirectorRow />
         <div className="flex flex-row flex-1">
           <HubBar />
           {isLoading ? (
@@ -117,7 +121,7 @@ const Austin = () => {
                 sessions={sessions.filter(
                   (session) => session.session_date === date,
                 )}
-                onOpenModal={() => openModal(date)}
+                onOpenModal={(slot) => openModal(date, slot)}
                 onEditSession={editSession}
               />
             ))
@@ -129,6 +133,7 @@ const Austin = () => {
         <Modal
           date={selectedDate}
           location="Austin"
+          slot={selectedSlot}
           session={selectedSession}
           onSaved={() => {
             setIsModalOpen(false);
