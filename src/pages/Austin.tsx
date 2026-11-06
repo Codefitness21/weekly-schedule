@@ -28,11 +28,9 @@ const Austin = () => {
   const [selectedSession, setSelectedSession] = useState<Session | null>(null);
 
   const [sessions, setSessions] = useState<Session[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchSessions = async () => {
-      setIsLoading(true);
       const saturday = new Date(weekStart);
       saturday.setDate(saturday.getDate() + 5);
 
@@ -47,12 +45,9 @@ const Austin = () => {
 
       if (error) {
         console.error("Failed to fetch Austin sessions:", error);
-        setIsLoading(false);
         return;
       }
-
       setSessions(data ?? []);
-      setIsLoading(false);
     };
 
     fetchSessions();
@@ -97,24 +92,22 @@ const Austin = () => {
 
   return (
     <>
-      <main className="flex min-h-dvh flex-col bg-cover bg-no-repeat text-foreground bg-[url('/images/iCode-Austin-bkgrd.jpg')]">
+      <main className="flex min-h-dvh w-full lg:flex-col flex-col overflow-hidden bg-cover bg-no-repeat text-foreground bg-[url('/images/iCode-Austin-bkgrd.jpg')]">
         <Navbar
           weekStart={weekStart}
           onWeekChange={shiftWeek}
           onDateChange={selectWeek}
         />
-        <div className="bg-blue-500">
-          <Calbar weekStart={weekStart} />
-        </div>
-        <DirectorRow />
-        <div className="flex flex-row flex-1">
-          <HubBar />
-          {isLoading ? (
-            <div className="flex flex-1 items-center justify-center bg-white/70">
-              Loading sessions...
-            </div>
-          ) : (
-            dates.map((date) => (
+
+        <div className="w-full overflow-x-scroll">
+          <div className="flex flex-col bg-blue-500 min-w-[1000px]">
+            <Calbar weekStart={weekStart} />
+
+            <DirectorRow />
+          </div>
+          <div className="flex flex-row flex-1 min-w-[1000px]">
+            <HubBar />
+            {dates.map((date) => (
               <SessionCard
                 key={date}
                 date={date}
@@ -124,8 +117,8 @@ const Austin = () => {
                 onOpenModal={(slot) => openModal(date, slot)}
                 onEditSession={editSession}
               />
-            ))
-          )}
+            ))}
+          </div>
         </div>
       </main>
 

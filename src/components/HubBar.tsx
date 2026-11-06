@@ -3,13 +3,13 @@
 //hubStyles are a string of styles that are applied to each Hub during mapping.
 //key needed to help React identify which hub items have been changed.
 
-const hubs = ["HUB 1", "HUB 2", "HUB 3", "HUB 4", "Make-ups/Private"];
+const hubs = ["HUB 1", "HUB 2", "HUB 3", "HUB 4", "Make-ups"];
 const hubStyles =
-  "flex flex-1 min-h-55 w-[15vw] items-center justify-center bg-black border-t-1";
+  "flex flex-1 min-h-55 w-[15vw] items-center text-center justify-center bg-black border-t-1";
 
 const HubBar = () => {
   return (
-    <div className="flex min-h-0 flex-col justify-center text-zinc-100 text-1xl">
+    <div className="flex min-h-dvh flex-col justify-center text-zinc-100 text-1xl">
       {hubs.map((hubs) => (
         <div className={hubStyles} key={hubs}>
           <h3>{hubs}</h3>

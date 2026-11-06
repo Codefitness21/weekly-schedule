@@ -11,7 +11,7 @@ const DirectorRow = () => {
         {directors.map((_, index) => (
           <div
             key={index}
-            className="flex flex-col items-center justify-center cursor-pointer font-medium"
+            className="flex lg:flex-col flex-col lg:items-center lg:justify-center cursor-pointer font-medium"
           >
             Director on-site
             <select

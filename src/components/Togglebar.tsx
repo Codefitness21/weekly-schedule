@@ -7,11 +7,11 @@ const Togglebar = () => {
   const isAustin = pathname === "/" || pathname === "/austin";
 
   return (
-    <div className="flex flex-row mb-2 w-full justify-end">
+    <div className="flex lg:flex-row mb-2 w-full lg:justify-start">
       <NavLink
         to="/austin"
         className={({ isActive }) =>
-          `px-10 ${isAustin || isActive ? "bg-blue-500 text-white" : "bg-white text-black"}`
+          `px-15 ${isAustin || isActive ? "bg-blue-500 text-white" : "bg-white text-black"}`
         }
       >
         South Austin

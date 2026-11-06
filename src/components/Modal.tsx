@@ -25,9 +25,8 @@ const Modal = ({
   onClose,
 }: ModalProps) => {
   const [formData, setFormData] = useState({
-    repeatWeekly: true,
+    repeatWeekly: false,
     instructor: session?.instructor ?? "",
-    // backUp: session?.backUp ?? "",
     sub: session?.sub ?? false,
     status: session?.status ?? "",
     hub: session?.hub ?? "",
@@ -43,7 +42,6 @@ const Modal = ({
 
     const sessionDetails = {
       instructor: formData.instructor,
-      // backUp: formData.backUp,
       sub: formData.sub,
       status: formData.status,
       hub: formData.hub,
@@ -55,7 +53,7 @@ const Modal = ({
     };
 
     const rows = [];
-    const weeks = formData.repeatWeekly ? 12 : 1;
+    const weeks = formData.repeatWeekly ? 40 : 1;
 
     for (let i = 0; i < weeks; i++) {
       const dates = new Date(date);
@@ -130,29 +128,32 @@ const Modal = ({
   };
 
   return (
-    <div className="fixed top-0 right-0 w-full h-full bg-black/70 flex flex-row justify-center items-center ">
-      <div className="bg-white p-20 w-200 h-150">
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <div className="flex flex-row justify-between">
+    <div className="fixed top-0 right-0 w-full h-full bg-black/70 flex lg:flex-row lg:justify-center justify-center items-center lg:items-center">
+      <div className="bg-white p-20 lg:w-200 lg:h-150 w-100">
+        <form
+          onSubmit={handleSubmit}
+          className="flex lg:flex-col flex-col gap-4"
+        >
+          <div className="flex flex-col lg:flex-row lg:justify-between">
             <div>
-              <div className="flex flex-row justify-between">
+              <div className="flex lg:flex-row lg:justify-between gap-2">
                 <label
                   htmlFor="instructor"
-                  className="flex flex-row justify-between font-bold"
+                  className="flex lg:flex-row lg:justify-between font-bold"
                 >
                   Instructors
                 </label>
 
                 <label
                   htmlFor="sub"
-                  className="flex flex-row items-end text-sm font-normal gap-2"
+                  className="flex lg:flex-row lg:items-end items-end text-sm font-normal lg:gap-2"
                 >
                   <input
                     name="sub"
                     type="checkbox"
                     checked={formData.sub}
                     onChange={handleChange}
-                    className="mb-1 cursor-pointer"
+                    className="mb-1 cursor-pointer gap-2"
                   ></input>
                   Sub
                 </label>
@@ -174,30 +175,6 @@ const Modal = ({
                 <option value="Jeff">Jeff</option>
               </select>
             </div>
-            {/* <div>
-              <label
-                htmlFor="back-up instructor"
-                className="flex flex-row justify-between font-bold"
-              >
-                Back-up Instructors
-              </label>
-              <select
-                name="backUp"
-                className="cursor-pointer w-50 p-2 border rounded-none"
-                value={formData.backUp}
-                onChange={handleChange}
-              >
-                <option>(Back-up Instructors)</option>
-                <option value="Kelly"> Kelly</option>
-                <option value="Donta"> Donta</option>
-                <option value="John"> John</option>
-                <option value="Kalina"> Kalina</option>
-                <option value="Mya"> Mya</option>
-                <option value="Roberto">Roberto</option>
-                <option value="Gio">Gio</option>
-                <option value="Jeff">Jeff</option>
-              </select>
-            </div> */}
 
             <div>
               <label htmlFor="status" className="block font semibold font-bold">
@@ -235,7 +212,7 @@ const Modal = ({
               </select>
             </div>
           </div>
-          <div className="flex flex-row justify-between">
+          <div className="flex lg:flex-row lg:justify-between flex-col">
             <div>
               <label htmlFor="belt" className="block font semibold font-bold">
                 Belt Classes
@@ -283,7 +260,7 @@ const Modal = ({
             </div>
           </div>
 
-          <div className="flex flex-row gap-7">
+          <div className="flex lg:flex-row flex-col gap-7">
             <div>
               <label
                 htmlFor="startTime"
@@ -323,8 +300,8 @@ const Modal = ({
                 required
               />
             </div>
-            <div className="flex flex-row text-sm">
-              <label className="flex flex-row self-center gap-2 ml-15">
+            <div className="flex lg:flex-row text-sm">
+              <label className="flex lg:flex-row lg:self-center gap-2 lg:ml-15">
                 <input
                   type="checkbox"
                   name="repeatWeekly"
@@ -336,7 +313,7 @@ const Modal = ({
             </div>
           </div>
 
-          <div className="flex flex-row">
+          <div className="flex lg:flex-row">
             <div>
               <label
                 htmlFor="description"
@@ -348,15 +325,15 @@ const Modal = ({
                 name="notes"
                 maxLength={150}
                 wrap="soft"
-                className="w-160 resize-none whitespace-normal p-2 border rounded-none"
+                className="lg:w-160 w-70 resize-none whitespace-normal p-2 border rounded-none"
                 value={formData.notes}
                 onChange={handleChange}
               ></textarea>
             </div>
           </div>
 
-          <div className="flex flex-row justify-between">
-            <div className="flex flex-row">
+          <div className="flex lg:flex-row lg:justify-between">
+            <div className="flex lg:flex-row flex-row mr-8">
               <button
                 type="button"
                 onClick={handleDelete}
@@ -366,10 +343,10 @@ const Modal = ({
               </button>
             </div>
 
-            <div className="flex flex-row items-right justify-center">
+            <div className="flex lg:flex-row lg:items-right lg:justify-center">
               <button
                 type="button"
-                className="border rounded-none py-0.5 px-3 cursor-pointer mr-4"
+                className="border rounded-none py-0.5 px-3 cursor-pointer mr-8"
                 onClick={onClose}
               >
                 Cancel
