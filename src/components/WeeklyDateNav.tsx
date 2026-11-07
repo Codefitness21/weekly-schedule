@@ -25,7 +25,7 @@ const WeeklyDateNav = ({ weekStart, onWeekChange }: WeeklyDateNavProps) => {
       >
         Prev
       </button>
-      <span className="nav-label mx-2">
+      <span className="lg:w-30 lg:justify-center nav-label mx-2">
         {formatDate(monday)} - {formatDate(saturday)}
       </span>
       <button
