@@ -252,10 +252,10 @@ const Modal = ({
                 onChange={handleChange}
               >
                 <option value=""></option>
-                <option value="Minecraft">Minecraft</option>
-                <option value="YouTube">YouTube</option>
-                <option value="YouTube">Roblox</option>
-                <option value="VEX">VEX</option>
+                <option value="Minecraft">Minecraft: Modding Adventure</option>
+                <option value="YouTube">YouTube Creator</option>
+                <option value="YouTube">Roblox Editor</option>
+                <option value="VEX">Game Builder</option>
               </select>
             </div>
           </div>
