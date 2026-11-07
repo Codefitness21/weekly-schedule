@@ -6,7 +6,7 @@ import SessionCard from "../components/SessionCard";
 import { useEffect, useState } from "react";
 import { supabase } from "../assets/supabase-client";
 import type { Session } from "../types/session";
-import DirectorRow from "../components/DirectorRow";
+// import DirectorRow from "../components/DirectorRow";
 
 const getMondayOfCurrentWeek = () => {
   const today = new Date();
@@ -96,7 +96,7 @@ const Home = () => {
         <div className="w-full overflow-x-scroll">
           <div className="flex flex-col bg-blue-500 min-w-[1000px]">
             <Calbar weekStart={weekStart} />
-            <DirectorRow />
+            {/* <DirectorRow /> */}
           </div>
           <div className="flex flex-row flex-1 min-w-[1000px]">
             <HubBar />
