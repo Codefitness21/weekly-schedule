@@ -4,7 +4,7 @@ A React + TypeScript app for managing class/session scheduling, built with Vite.
 
 This project is currently being used to build a session edit modal and scheduling UI for class records.
 
-<div class=>
+<div>
 <img src="public/images/Austin.png" alt="Austin schedule" width="400"/> 
 <img src="public/images/Bee-Cave.png" alt="Bee Cave schedule" width="400"/>
 <div>
@@ -19,6 +19,12 @@ Create a schedule management interface where users can:
 - choose start/end times
 - add notes
 - delete, cancel, or save session updates
+
+## Hi-Fi Mockup design
+
+<div>
+<img src="public/images/Hi-fi_Mockup.png" alt="Hi-Fi mockup of scheduler"/> 
+<div>
 
 ## Current app structure
 
