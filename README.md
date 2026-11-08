@@ -102,23 +102,14 @@ Use this section to document new form fields, UI logic, or business rules as the
 
 ### Add as the project grows
 
-- [ ] Attendance status
-- [ ] Recurring class toggle
+- [ ] Time conflict alert
+- [ ] Delete All btn for recurring events
 
-- [ ] Save to local state / database
-- [ ] API integration
-
-## How to run locally
-
-```bash
-npm install
-npm run dev
-```
+- [ ] Read only link for viewers
+- [ ] Dropdown calendar to reflect all 12 months, previous and future selections
+- [ ] Add the director on-site option
 
 ## Future improvements
 
-- improve form validation
-- connect to real schedule data
-- support editing multiple sessions
-- style the modal to match the rest of the app
-- add reusable form components for repeated inputs
+- Improve loading sessions
+- Style the edit icon to a white color so it contrasts well against the darker belt color sessions
