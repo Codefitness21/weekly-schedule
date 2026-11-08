@@ -9,6 +9,12 @@ This project is currently being used to build a session edit modal and schedulin
 <img src="public/images/Bee-Cave.png" alt="Bee Cave schedule" width="400"/>
 <div>
 
+## Hi-Fi Mockup design
+
+<div>
+<img src="public/images/Hi-fi_Mockup.png" alt="Hi-Fi mockup of scheduler"/> 
+<div>
+
 ## Current project goal
 
 Create a schedule management interface where users can:
@@ -19,12 +25,6 @@ Create a schedule management interface where users can:
 - choose start/end times
 - add notes
 - delete, cancel, or save session updates
-
-## Hi-Fi Mockup design
-
-<div>
-<img src="public/images/Hi-fi_Mockup.png" alt="Hi-Fi mockup of scheduler"/> 
-<div>
 
 ## Current app structure
 
