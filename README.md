@@ -7,7 +7,10 @@ This project is currently being used to build a session edit modal and schedulin
 <img src="public/images/Austin.png" alt="Austin schedule" width="400"/> 
 <img src="public/images/Bee-Cave.png" alt="Bee Cave schedule" width="400"/>
 <div>
-<img src="public/images/Modal.png" alt="Modal"/>
+<div>
+<img src="public/images/Austin-Modal.png" alt="Modal" width="400"/>
+<img src="public/images/BC-Modal.png" alt="Modal" width="400"/>
+<div>
 
 ## Hi-Fi Mockup design
 
