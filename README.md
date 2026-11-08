@@ -108,6 +108,7 @@ Use this section to document new form fields, UI logic, or business rules as the
 - [ ] Read only link for viewers
 - [ ] Dropdown calendar to reflect all 12 months, previous and future selections
 - [ ] Add the director on-site option
+- [ ] Dropdown of different schedule types in the nav bar
 
 ## Future improvements
 

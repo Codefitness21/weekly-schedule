@@ -53,13 +53,12 @@ const SessionCard = ({
     return `${hour12}:${minutes} ${ampm}`;
   };
 
+  //removed ?? "bg-white text-black"
   return (
     <div className="flex min-h-0 min-w-0 flex-1 flex-col">
       {boxes.map((box) => {
         const session = sessionsBySlot.get(box);
-        const cardStyle = session
-          ? (beltStyles[session.belt ?? ""] ?? "bg-white text-black")
-          : "";
+        const cardStyle = session ? beltStyles[session.belt ?? ""] : "";
 
         return (
           <div
@@ -75,16 +74,20 @@ const SessionCard = ({
                   {session.sub && <div className="text-[0.65rem]">(Sub)</div>}
                   <div className="font-normal">{session.hub}</div>
                   <div className="font-normal">{session.status}</div>
-                  <div className="ml-3 font-normal italic">
-                    {/* {session.backUp} */}
-                  </div>
+                  <div className="ml-3 font-normal italic"></div>
                   <button
                     type="button"
                     className="ml-auto shrink-0 cursor-pointer"
                     onClick={() => onEditSession(session)}
                     aria-label="Edit session"
                   >
-                    <img className="h-3 w-3" src="/images/edit.png" alt="" />
+                    <div>
+                      <img
+                        className="h-3 w-3"
+                        src="/images/edit.png"
+                        alt="black pencil"
+                      />
+                    </div>
                   </button>
                 </div>
                 <div className="border-b border-gray-200 px-1">
