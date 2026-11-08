@@ -1,6 +1,6 @@
 # Schedule
 
-A React + TypeScript app for managing class/session scheduling, built with Vite.
+A React + TypeScript site for managing class/session scheduling, built with Vite.
 
 This project is currently being used to build a session edit modal and scheduling UI for class records.
 <div>
@@ -85,6 +85,7 @@ This is a good place to add more fields as the scheduling workflow grows.
 - TypeScript
 - Vite
 - Tailwind CSS
+- Supabase
 
 ## Notes for continued development
 
