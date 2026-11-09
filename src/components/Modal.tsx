@@ -323,7 +323,7 @@ const Modal = ({
               </label>
               <textarea
                 name="notes"
-                maxLength={150}
+                maxLength={200}
                 wrap="soft"
                 className="lg:w-160 w-70 resize-none whitespace-normal p-2 border rounded-none"
                 value={formData.notes}
