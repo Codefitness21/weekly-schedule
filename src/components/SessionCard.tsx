@@ -84,7 +84,7 @@ const SessionCard = ({
                     <div>
                       <img
                         className="h-3 w-3"
-                        src="/images/edit.png"
+                        src="public/images/edit.png"
                         alt="black pencil"
                       />
                     </div>
